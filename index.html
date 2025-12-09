@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stellar Multisig Wallet</title>
+    <meta name="description" content="Secure multi-signature wallet for Stellar blockchain">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <svg class="logo-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                    <path d="M2 17l10 5 10-5"></path>
+                    <path d="M2 12l10 5 10-5"></path>
+                </svg>
+                <h1 class="logo-title">Stellar Multisig Wallet</h1>
+            </div>
+            <div class="header-actions">
+                <span class="network-badge" id="networkBadge" role="status" aria-label="Current network">Testnet</span>
+                <div class="wallet-status" id="walletStatus">
+                    <button class="btn btn--primary" id="connectBtn" aria-label="Connect Freighter wallet">Connect Wallet</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container" id="mainContainer">
+        <!-- Welcome Screen -->
+        <div class="view" id="welcomeView">
+            <div class="welcome-hero">
+                <div class="hero-content">
+                    <h2 class="hero-title">Secure Multi-Signature Wallet</h2>
+                    <p class="hero-subtitle">Collaborate with your team to manage digital assets on Stellar blockchain with enhanced security &amp; transparency.</p>
+                    <button class="btn btn--primary btn--lg" id="welcomeConnectBtn" aria-label="Connect Freighter wallet to get started">Connect Wallet to Get Started</button>
+                    
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🔒</div>
+                            <h3>Enhanced Security</h3>
+                            <p>Multiple signatures required for transactions</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🤝</div>
+                            <h3>Collaborative Control</h3>
+                            <p>Share wallet management with trusted parties</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📊</div>
+                            <h3>Transparent Transactions</h3>
+                            <p>Track all proposals and approvals in real-time</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard View -->
+        <div class="view view--hidden" id="dashboardView">
+            <div class="dashboard-layout">
+                <aside class="sidebar" id="sidebar">
+                    <nav class="sidebar-nav">
+                        <a href="#" class="nav-item nav-item--active" data-view="dashboard">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="#" class="nav-item" data-view="initialize">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="16"></line>
+                                <line x1="8" y1="12" x2="16" y2="12"></line>
+                            </svg>
+                            <span>Initialize Wallet</span>
+                        </a>
+                        <a href="#" class="nav-item" data-view="create-proposal">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg>
+                            <span>Create Proposal</span>
+                        </a>
+                        <a href="#" class="nav-item" data-view="proposals">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="8" y1="6" x2="21" y2="6"></line>
+                                <line x1="8" y1="12" x2="21" y2="12"></line>
+                                <line x1="8" y1="18" x2="21" y2="18"></line>
+                                <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                                <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                            </svg>
+                            <span>Proposals</span>
+                        </a>
+                        <a href="#" class="nav-item" data-view="wallet-info">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg>
+                            <span>Wallet Info</span>
+                        </a>
+                    </nav>
+                </aside>
+
+                <div class="main-content">
+                    <!-- Dashboard Content -->
+                    <div class="content-view" id="dashboardContent">
+                        <h2 class="content-title">Dashboard</h2>
+                        <div class="dashboard-grid" id="dashboardGrid"></div>
+                    </div>
+
+                    <!-- Initialize Wallet Content -->
+                    <div class="content-view content-view--hidden" id="initializeContent">
+                        <h2 class="content-title">Initialize Multisig Wallet</h2>
+                        <div class="form-container">
+                            <form id="initializeForm">
+                                <div class="form-section">
+                                    <h3 class="form-section-title">Signer Addresses</h3>
+                                    <p class="form-section-desc">Add the Stellar addresses that will be authorized to sign transactions.</p>
+                                    <div id="signersContainer">
+                                        <div class="signer-input-group">
+                                            <input type="text" class="form-control signer-input" placeholder="Stellar address (G...)" required aria-label="Signer address" pattern="^G[A-Z0-9]{55}$">
+                                            <button type="button" class="btn btn--secondary btn--icon remove-signer-btn" disabled>
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn--secondary" id="addSignerBtn">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        </svg>
+                                        Add Signer
+                                    </button>
+                                    <div class="signer-count" id="signerCount">1 signer added</div>
+                                </div>
+
+                                <div class="form-section">
+                                    <h3 class="form-section-title">Approval Threshold</h3>
+                                    <p class="form-section-desc">Number of signatures required to execute transactions.</p>
+                                    <div class="threshold-input-group">
+                                        <input type="number" class="form-control" id="thresholdInput" min="1" max="1" value="1" required>
+                                        <div class="threshold-label" id="thresholdLabel">Requires 1 of 1 signatures</div>
+                                    </div>
+                                    <input type="range" class="threshold-slider" id="thresholdSlider" min="1" max="1" value="1">
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn--primary btn--lg">Initialize Multisig Wallet</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Create Proposal Content -->
+                    <div class="content-view content-view--hidden" id="createProposalContent">
+                        <h2 class="content-title">Create Transaction Proposal</h2>
+                        <div class="form-container">
+                            <form id="createProposalForm">
+                                <div class="form-group">
+                                    <label class="form-label" for="recipientInput">Recipient Address</label>
+                                    <input type="text" class="form-control" id="recipientInput" placeholder="Stellar address (G...)" required aria-label="Recipient Stellar address" pattern="^G[A-Z0-9]{55}$">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="tokenSelect">Token</label>
+                                    <select class="form-control" id="tokenSelect" required aria-label="Select token type">
+                                        <option value="NATIVE">XLM Native</option>
+                                        <option value="CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZPUTHXSTZLEO7SJMI75">USDC</option>
+                                        <option value="custom">Custom Token...</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group" id="customTokenGroup" style="display: none;">
+                                    <label class="form-label" for="customTokenInput">Custom Token Address</label>
+                                    <input type="text" class="form-control" id="customTokenInput" placeholder="Token contract address (C...)" pattern="^C[A-Z2-7]{55}$" aria-label="Custom token contract address">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="amountInput">Amount</label>
+                                    <input type="number" class="form-control" id="amountInput" placeholder="0.00" step="0.000001" min="0.000001" required aria-label="Transaction amount">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="descriptionInput">Description (Optional)</label>
+                                    <textarea class="form-control" id="descriptionInput" rows="3" placeholder="Add a note about this transaction..." maxlength="500" aria-label="Transaction description"></textarea>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn--primary btn--lg">Create Proposal</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Proposals Content -->
+                    <div class="content-view content-view--hidden" id="proposalsContent">
+                        <div class="proposals-header">
+                            <h2 class="content-title">Proposals</h2>
+                            <div class="proposals-filters">
+                                <button class="filter-tab filter-tab--active" data-filter="all">All (0)</button>
+                                <button class="filter-tab" data-filter="pending">Pending (0)</button>
+                                <button class="filter-tab" data-filter="ready">Ready (0)</button>
+                                <button class="filter-tab" data-filter="executed">Executed (0)</button>
+                            </div>
+                        </div>
+                        <div class="proposals-list" id="proposalsList"></div>
+                    </div>
+
+                    <!-- Wallet Info Content -->
+                    <div class="content-view content-view--hidden" id="walletInfoContent">
+                        <h2 class="content-title">Wallet Information</h2>
+                        <div id="walletInfoDisplay"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content" id="modalContent"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
